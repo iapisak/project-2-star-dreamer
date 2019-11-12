@@ -14,7 +14,7 @@ https://i.imgur.com/W3X1oyK.jpg
 
 
 Tech:
-HTML, CSS, Python3, JavaScript, jquery, Django, Nasa APIs
+HTML, CSS, Python3, JavaScript, jQuery, Django, Nasa APIs, PostgreSQL, AJAX
 
 
 
