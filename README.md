@@ -1,6 +1,6 @@
-# to_the_stars
+Stars Dreamers
 
-# to_the_stars
+
 
 Humans have always looked to the stars for inspiration and to broaden their horizon. We wanted to create a site that incorporates the visual beauty of the unviverse while giving users the ability to express their emotional experinces through peotry. We feel that the vast enormety of the cosmos brings perspective into our daily existance and provides an escape for us, while reingaging our passion for life. 
 
@@ -14,12 +14,12 @@ https://i.imgur.com/W3X1oyK.jpg
 
 
 Tech:
-HTML, CSS, Python3, JavaScript, jquery, Django, 
+HTML, CSS, Python3, JavaScript, jquery, Django, Nasa APIs
 
 
 
 Wish List Future Development:
-
+Ability to follow users
 
 
 The team:
