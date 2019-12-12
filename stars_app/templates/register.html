@@ -1,0 +1,59 @@
+{% extends 'account_base.html' %}
+
+{% block content %}
+
+<div class=centered>
+    <nav class='nav-login'>
+        <a href="{% url 'login' %}">Already have an account?</a>
+        <a href="{% url 'guest_login' %}">Guest</a>
+    </nav>
+
+    <fieldset class='flex'>
+        <legend>
+            <div><span class="welcome">WELCOME</span><span class="small-letter">TO</span></div>
+        </legend>
+        <div class="logo"><h1><span class="brand-logo">Star Dreamer</span></h1></div>
+
+        <main>
+            <form method="POST">
+                {% csrf_token %}
+                {% if error %}
+                <div class='error'>{{ error }}</div>
+                {% endif %}
+                <div class="flex-col">
+                    <label for="first_name">First Name</label>
+                    <input type="text" name="first_name" maxlength="25" minlength="2" required>
+                </div>
+                <div class="flex-col">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" name="last_name" maxlength="25" minlength="2" required>
+                </div>
+                <div class="flex-col">
+                    <label for="username">User Name</label>
+                    <input type="username" name="username" maxlength="25" minlength="2" required>
+                </div>
+                <div class="flex-col">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" maxlength="25" minlength="2" required>
+                </div>
+                <div class="flex-col">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" maxlength="10" minlength="4" required>
+                </div>
+                <div class="flex-col">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password2" name="password2" maxlength="10" minlength="4" required>
+                </div>
+                <div class='right margin'>
+                    <button type="submit">Become a member</button>
+                </div>
+                <div class='center'>We never sell your information or spam you.</div>
+            </form>
+        </main>
+
+    </fieldset>
+</div>
+
+{% endblock %}
+
+    

@@ -1,0 +1,43 @@
+{% extends 'account_base.html' %}
+
+{% block content %}
+
+<div class=centered>
+    <nav class='nav-login'>
+        <a href="{% url 'register' %}">Become a member</a>
+        <a href="{% url 'guest_login' %}">Guest</a>
+    </nav>
+
+    <fieldset class='flex'>
+        <legend>
+            <div><span class="welcome">WELCOME</span><span class="small-letter">TO</span></div>
+        </legend>
+        <div class="logo"><h1><span class="brand-logo">Star Dreamer</span></h1></div>
+        
+        <main>
+            <form method="POST">
+                {% csrf_token %}
+                {% if error %}
+                <div class='error'>{{ error }}</div>
+                {% endif %}
+                <div class="flex-col">
+                    <label for="username">Username</label>
+                    <input type="username" name="username" maxlength="25" minlength="2" required>
+                </div>
+                <div class="flex-col">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" maxlength="8" minlength="4" required>
+                </div>
+                <div class='right margin'>
+                    <button type="submit">Log in</button>
+                </div>
+            </form>
+        </main>
+
+    </fieldset>
+</div>
+
+
+
+{% endblock%}
+

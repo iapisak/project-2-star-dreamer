@@ -1,0 +1,169 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static  'css/profile.css' %}">
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script defer src="{% static 'js/app.js' %}"></script>
+  <script src="https://kit.fontawesome.com/4634847c36.js"></script>
+  <title>Up To The Stars</title>
+</head>
+
+<body>
+  <nav>
+    <div>
+        <h1><a class='logo' href="{% url 'main_page' %}">Star Dreamers</a></h1>
+    </div>
+    <div class='menu'>
+        <span>Welcome, {{user.username}} </span>
+        <a href="{% url 'main_page' %}">Home</a>
+        <a href="{% url 'all_posts' %}">Poetry</a>
+        <a href="{% url 'profile'%}">Profile</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Sign Out</a>
+        {% else %}
+        <a href="{% url 'login' %}">Sign In</a>
+        {% endif %}
+    </div>
+  </nav>
+
+  <div class='introducing'>
+    <form id='profile' action="{% url 'profile_create'%}" method="post">
+      {% csrf_token %}
+      <div class='box-form-profile'>
+
+        <div class='boxt-first box-content'>
+            <p class='close-form'>Close X</p>
+            <p>Your can select your Avatar and <br>and give a short story on your profile</p>
+            <p class='click-here'>Select or Change your icon</p>
+        </div>
+        <div class='box-middle'>
+          <div class='message-box'>
+            <div class="flex f-j-content">
+                <div class="image-option">
+                    <input class="radio" type="radio" name="avatar" value="https://i.imgur.com/OZUN5stt.png" id="1" checked="checked">
+                    <label for="1"><img src="https://i.imgur.com/OZUN5stt.png"></label>
+                </div>
+                <div class="image-option">
+                    <input class="radio" type="radio" name="avatar" value="https://i.imgur.com/bvrB60st.png" id="2">
+                    <label for="2"><img src="https://i.imgur.com/bvrB60st.png"></label>
+                </div>
+                <div class="image-option">
+                    <input class="radio" type="radio" name="avatar" value="https://i.imgur.com/OKNkYdht.png" id="3">
+                    <label for="3"><img src="https://i.imgur.com/OKNkYdht.png"></label>
+                </div>
+                <div class="image-option">
+                    <input class="radio" type="radio" name="avatar" value="https://i.imgur.com/rY6gOb4s.png" id="4">
+                    <label for="4"><img src="https://i.imgur.com/rY6gOb4s.png"></label>
+                </div>
+                <div class="image-option">
+                    <input class="radio" type="radio" name="avatar" value="https://i.imgur.com/GVNJAmKt.png" id="5">
+                    <label for="5"><img src="https://i.imgur.com/GVNJAmKt.png"></label>
+                </div>
+                <div class="image-option">
+                    <input class="radio" type="radio" name="avatar" value="https://i.imgur.com/rY6gOb4t.png" id="6">
+                    <label for="6"><img src="https://i.imgur.com/rY6gOb4t.png"></label>
+                </div>
+                <div class="image-option">
+                    <input class="radio" type="radio" name="avatar" value="https://i.imgur.com/GVNJAmKt.png" id="7">
+                    <label for="7"><img src="https://i.imgur.com/GVNJAmKt.png"></label>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class='box-last'>
+          <p>Tell us about your story or how you feel today</p>
+          <textarea class='col' name="userstory" rows="4" required></textarea>
+          <input class='add' type="submit" value="Save your profile">
+        </div>
+      </div>
+    </form>
+  </div>
+
+<main>
+    {% if user %}
+    <h3>Your Story</h3>
+    {% else %}
+    <h3>Poem written by : {{ author.first_name}} {{ author.last_name }}</h3>
+    {% endif %}
+    <section class='user-post-section'>
+        
+        <div class='user-section' style="background-image:url('{{ profile.avatar }}');">
+            {% if user.is_authenticated %}
+            <p class='create-user-profile'>Update Profile</p>
+            {% endif %}
+            <div class='user-info-detail'>
+                <p class='info'><span class='span-yellow'>About Author</span></p><br>
+                <p class='info'>{{ user.first_name }} {{ user.last_name }}</p>
+                <p class='info'>{{ user.email }}</p>
+            </div>
+            <div class='profile-detail-section'>
+                <p><span class='span-gray'>Your story : </span></p><br>
+                <p>{{ profile.userstory }}</p>
+            </div>
+        </div>
+        
+
+        {% for post in posts%}
+        <div class='post-author-poem'>
+          <div class='post-img-user mybtn' style="background-image: url('{{ post.photo.url }}');">
+              <p class='poem-detail'>{{ post.body }}</p>
+          </div>
+          <div class="modal">
+              <div class="modal-content" style="background-image: url('{{ post.photo.url }}');"></div>  
+                <div class='read-me-poem'>
+                    <div class="photo-title">{{ post.photo.title }}</div>
+                    <p class='poem-detail-read'>{{ post.body }}</p>
+                </div>
+          </div>
+          <p class='span-title'>{{ post.title }}</p>
+            {% if user.is_authenticated %}
+            <a class='update' href="{% url 'post_edit' pk=post.pk %}">Update</a>
+            <a class='delete' href="{% url 'post_delete' pk=post.pk%}">Delete</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+</main>
+
+<script defer>
+
+  // # controller # //
+
+    $('main').on('click', '.mybtn', function (event) {
+      event.target.nextElementSibling.style.display = 'block'
+    })
+  
+    $('main').on('click', '.modal', function (event) {
+      $('.modal').css('display', 'none')
+    })
+
+    $('.create-user-profile').on('click', function () {
+      $('.introducing').css('display', 'block')
+    })
+    $('.click-here').on('click', function () {
+      $('.box-middle').toggle()
+    })
+
+    $('.add').on('click', function () {
+      $('.introducing').css('display', 'none')
+      $('.box-middle').css('display', 'none')
+    })
+
+    $('.close-form').on('click', function () {
+      $('.introducing').css('display', 'none')
+      $('.box-middle').css('display', 'none')
+    })
+
+    $('main').on('click', '.post-author-poem', function (event) {
+      console.log(event.target.$('.update'))
+    })
+
+</script>
+
+</body>
+</html>
