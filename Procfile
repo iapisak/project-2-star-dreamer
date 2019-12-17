@@ -1,1 +1,1 @@
-web: gunicorn stars_app.wsgi
+web: gunicorn stars_project.wsgi
