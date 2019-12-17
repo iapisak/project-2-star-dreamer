@@ -1,1 +1,1 @@
-web: gunicorn to_the_stars.wsgi --log-file -
+web: gunicorn to_the_stars.wsgi
