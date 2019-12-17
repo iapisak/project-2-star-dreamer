@@ -1,1 +1,1 @@
-web: gunicorn to_the_stars.wsgi
+web: gunicorn star-dreamers.wsgi
