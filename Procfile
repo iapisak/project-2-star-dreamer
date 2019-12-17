@@ -1,1 +1,1 @@
-web: gunicorn star-dreamers.wsgi
+web: gunicorn stars_app.wsgi
